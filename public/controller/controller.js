@@ -13,19 +13,22 @@ app.controller("AppCtrl",function($scope , $http){
 	$scope.addcontact=function(){
 		
 		$http.post('/contactlist',$scope.contact1).success(function(err,data){
-		console.log(data);
 		refresh();
-	});
+		console.log(data);
+	})
 	};
 
 	$scope.deletecontact=function(id){
-		console.log(id);
 		$http.delete('/contactlist/' + id).success(function(res){
+			console.log(res);
 			refresh();
 		})};
-	$scope.editcontact=function(id2){
-		$http.get('/contactlist/' + id2).success(function(res){
+	$scope.editcontact=function(id){
+		$http.get('/contactlist/' + id).success(function(res){
 			$scope.contact1 = res;
-		});	
-}
+		});};
+	$scope.updatecontact=function(){
+		console.log($scope.contact1._id)
+		$http.put('/contactlist/'+$scope.contact1._id,$scope.contact1)
+	};
 });
